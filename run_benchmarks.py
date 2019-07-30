@@ -17,10 +17,10 @@ com_vec.append('Parallel')
 print("Parallel compute finished in {}".format(time.time()-parallel))
 
 dask = time.time()
-cor = run_dask_compute(h5_main,proc=True,cpu_cores=cores)
+cor = run_dask_compute(h5_main)
 time_vec.append(time.time()-dask)
 cores_vec.append(cor)
-com_vec.append('Dask, Processes')
+com_vec.append('Dask')
 print("Dask compute finished in {}".format(time.time()-dask))
 
 serial = time.time()
@@ -33,11 +33,13 @@ print("Serial compute finished in {}".format(time.time()-serial))
 plot_compute_times(cpu_vec,times_vec,com_vec,png_name='baseBenchmarks')
 
 #some other benchmarks
+'''
 dask32 = time.time()
-cor = run_dask_compute(h5_main, proc=False,cpu_core=32)
+cor = run_dask_compute(h5_main)
 time_vec.append(time.time()-dask32)
 cores_vec.append(cor)
-com_vec.append('Dask, Threading')
+com_vec.append('Dask')
+'''
 
 para32 = time.time()
 run_parallel_compute(h5_main, cpu_cores=32)
