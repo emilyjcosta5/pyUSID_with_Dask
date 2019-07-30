@@ -1,0 +1,6 @@
+filtered = np.float32(filtered)
+z = np.mean(filtered, axis=2)
+a = np.mean(z, axis=2)
+fig, axes = plt.subplots(ncols=2)
+axes[0].imshow(a)
+axes[1].imshow(np.float32(mask))

@@ -1,0 +1,5 @@
+z_dask = da.mean(filtered_dask, axis=2, dtype='float32')
+a_dask = da.mean(z_dask, axis=2, dtype='float32')
+fig, axes = plt.subplots(ncols=2)
+axes[0].imshow(a_dask)
+axes[1].imshow(np.float32(mask_dask))

@@ -1,0 +1,5 @@
+z = da.mean(stem_4d_dask, axis=0)
+a = da.mean(z, axis=0)
+a = a.astype('float32')
+fig, axis = plt.subplots()
+axis.imshow(a)
