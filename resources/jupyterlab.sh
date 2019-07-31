@@ -1,6 +1,6 @@
 function clone_pull {
   DIRECTORY=$(basename "$1" .git)
-  if [ -d "$DIRECTORY" ]; then
+  if [ -d "../$DIRECTORY" ]; then
     cd "$DIRECTORY"
     git pull
     cd ../
