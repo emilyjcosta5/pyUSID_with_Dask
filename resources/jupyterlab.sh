@@ -4,7 +4,7 @@ export PATH=/gpfs/alpine/world-shared/gen011/native-build/anaconda3/bin:$PATH
 # Make sure repo it there and up-to-date
 function clone_pull {
   DIRECTORY=$(basename "$1" .git)
-  if [ -d "../../$DIRECTORY" ]; then
+  if [ -d "$DIRECTORY" ] | [ -d "../../$DIRECTORY"]; then
     cd "$DIRECTORY"
     git pull
     cd ../
