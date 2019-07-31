@@ -90,7 +90,7 @@ def test_peak_finding(h5_main):
     axis.set_ylim([0, 1.1 * np.max(np.abs(spectra))]);
     axis.set_title('find_all_peaks found peaks at index: {}'.format(peak_inds), fontsize=16)
 
-def run_dask_compute(h5_main,proc=True):
+def run_dask_compute(h5_main):
     raw_data = h5_main[()]
     #cpu_cores = int(cpu_cores/8)
     dask_raw_data = da.from_array(raw_data, chunks='auto')
@@ -98,7 +98,7 @@ def run_dask_compute(h5_main,proc=True):
     #client = Client(cluster, processes=True)
     #map = dask_raw_data.map_blocks(find_all_peaks, [20, 60], num_steps=30)
     #results = map.compute()
-    client = Client(processes=proc)
+    client = Client(processes=False)
     L = client.map(find_all_peaks, dask_raw_data, width_bounds = [20, 60], num_steps=30)
     dask_results = client.gather(L)
     cores = client.ncores()
