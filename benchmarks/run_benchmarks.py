@@ -30,7 +30,7 @@ cores_vec.append(1)
 com_vec.append('Serial')
 print("Serial compute finished in {}".format(time.time()-serial))
 
-plot_compute_times(cpu_vec,times_vec,com_vec,png_name='baseBenchmarks')
+plot_compute_times(cores_vec,time_vec,com_vec,png_name='baseBenchmarks')
 
 #some other benchmarks
 '''
@@ -62,4 +62,4 @@ com_vec.append('Parallel')
 with open('benchmarks.csv','w') as f:
     for cpu,com,time in zip(cores_vec,com_vec,time_vec):
         f.write(com + ", " + str(cpu) + ", " + str(time) + '\n')
-plot_compute_times(cpu_vec,times_vec,com_vec,png_name='benchmarks')
+plot_compute_times(cores_vec,times_vec,com_vec,png_name='benchmarks')
