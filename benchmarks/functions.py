@@ -99,14 +99,17 @@ def run_dask_compute(h5_main):
     #map = dask_raw_data.map_blocks(find_all_peaks, [20, 60], num_steps=30)
     #results = map.compute()
     client = Client(processes=False)
-    L = client.map(find_all_peaks, raw_data, width_bounds = [20, 60], num_steps=30)
-    dask_results = client.gather(L)
+    dask_raw_data = client.scatter(raw_data)
+    args = [[20, 60]]
+    kwargs = {'num_steps': 30}
+    L = client.submit(find_all_peaks, dask_raw_data, args, kwargs)
+    dask_results = client.compute(L)
     cores = client.ncores()
     client.close()
-    return results
+    return cores
 
 def run_serial_compute(h5_main):
-    raw_data = h5_main([])
+    raw_data = h5_main[()]
     serial_results = list()
     for vector in raw_data:
         serial_results.append(find_all_peaks(vector, [20, 60], num_steps=30))
