@@ -93,13 +93,13 @@ def test_peak_finding(h5_main):
 def run_dask_compute(h5_main):
     raw_data = h5_main[()]
     #cpu_cores = int(cpu_cores/8)
-    dask_raw_data = da.from_array(raw_data, chunks='auto')
+    #dask_raw_data = da.from_array(raw_data, chunks='auto')
     #cluster = LocalCluster(n_workers=cpu_cores/8)
     #client = Client(cluster, processes=True)
     #map = dask_raw_data.map_blocks(find_all_peaks, [20, 60], num_steps=30)
     #results = map.compute()
     client = Client(processes=False)
-    L = client.map(find_all_peaks, dask_raw_data, width_bounds = [20, 60], num_steps=30)
+    L = client.map(find_all_peaks, raw_data, width_bounds = [20, 60], num_steps=30)
     dask_results = client.gather(L)
     cores = client.ncores()
     client.close()
